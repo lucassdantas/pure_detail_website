@@ -1,12 +1,7 @@
+import { Banner } from "@/app/components/Banner";
+
 export default function Home() {
   return (
-    <div >
-      <main >
-
-      </main>
-      <footer >
-
-      </footer>
-    </div>
+    <Banner title='Detail That Delivers' bgImgClass="homeBanner" hasButton={true} button={{text:'Book a Detail', url:'/book'}}/>
   );
 }

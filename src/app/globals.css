@@ -2,16 +2,23 @@
 
 
 @theme {
-
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent-yellow:#dbfa19;
+  --color-light-yellow:#d9f851;
 }
 
 body {
+  font-family: var(--font-general-sans), sans-serif;
+}
 
+h1, h2 {
+  font-family: var(--font-eurostile), sans-serif;
+}
+
+.bannerSection{
+  background-size:cover; 
+  background-position: center;
+  background-repeat:no-repeat;
+}
+.homeBanner{
+  background-image:url('/imgs/detail-that-delivers.jpg')
 }
