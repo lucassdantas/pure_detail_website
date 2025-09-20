@@ -7,11 +7,11 @@
 }
 
 body {
-  font-family: var(--font-general-sans), sans-serif;
+  font-family: var(--font-general-sans),  sans-serif;
 }
 
 h1, h2 {
-  font-family: var(--font-eurostile), sans-serif;
+  font-family: var(--font-eurostile), sans-serif!important;
 }
 
 .bannerSection{
@@ -20,5 +20,13 @@ h1, h2 {
   background-repeat:no-repeat;
 }
 .homeBanner{
-  background-image:url('/imgs/detail-that-delivers.jpg')
+  background-image:url('/imgs/banners/detail-that-delivers.jpg')
+}
+
+.servicesBanner{
+  background-image:url('/imgs/banners/banner-services.jpg')
+}
+
+.bookBanner{
+  background-image:url('/imgs/banners/banner-get-a-quote-today.jpg')
 }
