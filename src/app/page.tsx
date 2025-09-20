@@ -2,9 +2,12 @@ import { Banner } from "@/app/components/Banner";
 import { BeforeAndAfter } from "@/app/components/BeforeAndAfter";
 import { CircleButon } from "@/app/components/CircleButon";
 import { HighLightedTitle } from "@/app/components/HighLightedTitle";
+import { Reviews } from "@/app/components/Reviews";
 import { Section } from "@/app/components/Section";
 import { ServiceCard } from "@/app/components/ServiceCard";
+import { reviews } from "@/app/utils/reviews";
 import { featuredServices } from "@/app/utils/services";
+import { transformations } from "@/app/utils/transformations";
 export default function Home() {
   
   return (
@@ -51,8 +54,19 @@ export default function Home() {
       </Section>
       <Section>
           <HighLightedTitle text='Transformations'/>
-          <BeforeAndAfter beforeImg="/imgs/transformation/transformation-seat.jpg/" afterImg="/imgs/transformation/transformation-wheel.jpg"/>
-
+          <div className='flex justify-between items-stretch gap-12'>
+            {transformations.map(transformation => {
+              return <BeforeAndAfter dirtyImg={transformation.dirtyImg} cleanImg={transformation.cleanImg} key={transformation.cleanImg}/>
+            })}
+          </div>
+      </Section>
+      <Section>
+        <HighLightedTitle text='Reviews'/>
+        <div className='flex justify-between items-stretch gap-12'>
+          {reviews.map(review => {
+            return <Reviews text={review.text} author={review.author} key={review.id} id={review.id}/>
+          })}
+        </div>
       </Section>
     </>
   );

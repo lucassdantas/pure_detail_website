@@ -1,7 +1,7 @@
 import { TransformationType } from "@/app/types/TransformationType";
 import { transformationsImgsDirectory } from "@/app/utils/constantVales/urls";
 
-export const transformationsImgs:TransformationType[] = [
+export const transformations:TransformationType[] = [
   {
     dirtyImg:transformationsImgsDirectory+'/transformation-seat.jpg',
     cleanImg:transformationsImgsDirectory+'/transformation-wheel.jpg'

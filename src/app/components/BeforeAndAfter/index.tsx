@@ -2,13 +2,13 @@
 import React, { useRef, useState, useEffect } from "react";
 
 type BeforeAndAfterProps = {
-  beforeImg: string; // imagem do carro sujo
-  afterImg: string;  // imagem do carro limpo
+  dirtyImg: string; // imagem do carro sujo
+  cleanImg: string;  // imagem do carro limpo
 };
 
 export const BeforeAndAfter: React.FC<BeforeAndAfterProps> = ({
-  beforeImg,
-  afterImg,
+  dirtyImg,
+  cleanImg,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50); // posição inicial da linha (em %)
@@ -56,7 +56,7 @@ export const BeforeAndAfter: React.FC<BeforeAndAfterProps> = ({
     >
       {/* imagem de fundo (carro limpo) */}
       <img
-        src={afterImg}
+        src={cleanImg}
         alt="Carro limpo"
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
@@ -67,7 +67,7 @@ export const BeforeAndAfter: React.FC<BeforeAndAfterProps> = ({
         style={{ width: `${position}%` }}
       >
         <img
-          src={beforeImg}
+          src={dirtyImg}
           alt="Carro sujo"
           className="w-full h-full object-cover"
         />
