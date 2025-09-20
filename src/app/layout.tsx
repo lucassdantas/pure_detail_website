@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${generalSansFont.variable} ${euroStileFont.variable} antialiased`}>
+      <body className={`${generalSansFont.variable} ${euroStileFont.variable} antialiased bg-black text-white`}>
         <Header/>
         <main>
           {children}
