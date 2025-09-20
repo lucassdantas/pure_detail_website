@@ -1,4 +1,5 @@
 import { CircleButon } from '@/app/components/CircleButon'
+import { DiagonalRoundedImage } from '@/app/components/DiagonalRoundedImage'
 import { ServiceType } from '@/app/types/ServiceType'
 import React from 'react'
 
@@ -10,7 +11,8 @@ export const ServiceCard = ({upperText, bottomText, title, detailsList, priceTex
     <div>
       <div className={` flex flex-column p-2 border-2 border-accent-yellow bg-radial from-white from-40% to-black rounded-lg `}>
         <h3>{upperText}</h3>
-        <img src={imgUrl} alt={title}/>
+        <DiagonalRoundedImage imgUrl={imgUrl} alt={title}  />
+
         <h3>{bottomText}</h3>
       </div>
       <div>

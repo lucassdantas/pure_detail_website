@@ -17,7 +17,7 @@ export const Header = () => {
             </Link>
           </ul>
         </nav>
-        <img src='' alt='pure detail logo'/>
+        {/* <img src='' alt='pure detail logo'/> */}
         <nav>
           <ul className='flex justify-between w-1/4'>
             <Link href='/book'>

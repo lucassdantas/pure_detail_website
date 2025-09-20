@@ -25,7 +25,7 @@ export const Footer = () => {
   return (
     <footer>
       <div>
-        <img src='' alt='pure detail logo footer'/>
+        {/* <img src='' alt='pure detail logo footer'/> */}
         {footerColumns.map((column, i ) => {
           return (
             <div key={column.title}>
