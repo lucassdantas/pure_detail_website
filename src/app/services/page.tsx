@@ -14,6 +14,7 @@ const servicesByCategory = allServices.reduce((acc, service) => {
   acc[service.category].push(service)
   return acc
 }, {} as Record<string, ServiceType[]>)
+
   return (
     <>
       <Banner title='Services' bgImgClass="servicesBanner" hasButton={false} />
@@ -24,7 +25,7 @@ const servicesByCategory = allServices.reduce((acc, service) => {
             <div key={category}>
               <h2 className="text-xl font-bold mb-4">{category}</h2>
 
-              <div className="flex gap-4 justify-between items-stretch flex-wrap">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                 {services.map((service) => (
                   <ServiceCard
                     bottomText={service.bottomText}
