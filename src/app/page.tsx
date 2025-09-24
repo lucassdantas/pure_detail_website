@@ -37,12 +37,11 @@ export default function Home() {
       </Section>
       <Section>
           <HighLightedTitle text='About'/>
-          <div className='flex justify-center gap-12'>
-            <img src='' alt='Car professional working' className='rounded-lg w-1/2'/>
-            <div>
+          <div className='flex justify-center gap-24 items-center px-[80px]'>
+            <img src='/imgs/about/professional-cleaning-a-car.jpg' alt='Car professional working' className='rounded-lg w-1/2 '/>
+            <div className='font-bold gap-4 text-xl w-1/2 space-y-4'>
               <p>
-                We're a locally-owned detailing business with one mission:
-                to make every car look and feel its best.
+                We're a locally-owned detailing business with one mission: to make every car look and feel its best.
                 <br/> 
                 From daily drivers to weekend showpieces, every detail is done with precision, care, and pride.
               </p>
