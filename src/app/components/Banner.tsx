@@ -21,7 +21,7 @@ export const Banner = ({bgImgClass, title, hasButton, button}:BannerProps) => {
   return (
     <Section className={`relative flex justify-center py-24 items-end text-center min-h-[70vh] bannerSection text-white ${bgImgClass}`}>
       <div className={`absolute h-full w-full top-0 left-0 opacity-60 bg-black `}></div>
-      <h1 className='relative text-7xl mb-24'>{title}</h1>
+      <h1 className='uppercase font-black relative text-7xl mb-24'>{title}</h1>
       {hasButton &&<Button url={button?.url} text={button?.text} />}
     </Section>
   )

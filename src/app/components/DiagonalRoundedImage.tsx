@@ -8,7 +8,7 @@ export const DiagonalRoundedImage = ({ imgUrl, alt, cardId}: Props) => {
   return (
     <svg
       width="306"
-      height="317"
+      height="337"
       viewBox="0 0 346 417"
       xmlns="http://www.w3.org/2000/svg"
       className="block"

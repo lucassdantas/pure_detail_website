@@ -11,7 +11,7 @@ export const transformations:TransformationType[] = [
     cleanImg:transformationsImgsDirectory+'/transformation-wheel.jpg'
   },
   {
-    dirtyImg:transformationsImgsDirectory+'/transformation-seat.jpg',
-    cleanImg:transformationsImgsDirectory+'/transformation-wheel.jpg'
+    dirtyImg:transformationsImgsDirectory+'/transformation-wheel.jpg',
+    cleanImg:transformationsImgsDirectory+'/transformation-seat.jpg'
   },
 ]

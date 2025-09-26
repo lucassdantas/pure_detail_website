@@ -28,16 +28,16 @@ export const Footer = () => {
 
   ] 
   return (
-    <footer className='bg-white text-black py-2 w-full'>
-      <Limiter>
+    <footer className='bg-white text-black py-12  w-full'>
+      <Limiter className='flex flex-col justify-between gap-12 xl:px-0 px-6'>
         <div className="flex justify-between">
-          <div className='bg-black w-2/3'></div>
+          <div className='bg-black w-2/4 h-[140px]'></div>
           {/* <img src='' alt='pure detail logo footer'/> */}
           {footerColumns.map((column, i ) => {
             return (
               <div key={column.title}>
-                <h4 className='text-2xl uppercase font-medium'>{column.title}</h4>
-                <ul>
+                <h4 className='text-2xl uppercase font-bold mb-2'>{column.title}</h4>
+                <ul className=''>
                   {column.links.map((menuLink, i2) => <Link href={menuLink.link} key={menuLink.link}><li>{menuLink.name}</li></Link>)}
                 </ul>
               </div>
@@ -45,7 +45,7 @@ export const Footer = () => {
           })}
         </div>
         <div className='flex justify-between'>
-          <div className="flex gap-2">
+          <div className="flex gap-2 text-2xl gap-4">
             <Link href={tiktokUrl}>
               <BsTiktok/>
             </Link>
@@ -56,10 +56,10 @@ export const Footer = () => {
               <CgFacebook/>
             </Link>
           </div>
-          <div className="flex items-center justify-end gap-4">
-            <div className="flex gap-2 items-center"><FaPhoneAlt /> <Link href={'tel:'+phoneUrl}>{phone}</Link></div>
-            <div className="flex gap-2 items-center"><FaEnvelope  /> <Link href={'mailto:'+email}>{email}</Link></div>
-            <small>&copy;Pure Detail {new Date().getFullYear()}. All Rights reserved.</small>
+          <div className="flex items-center justify-end gap-8 text-xl">
+            <Link href={'tel:'+phoneUrl} className='flex gap-4 items-center'><FaPhoneAlt className='text-2xl' /> {phone}</Link>
+            <Link href={'mailto:'+email} className='flex gap-4 items-center'><FaEnvelope className='text-2xl'  /> {email}</Link>
+            <small>&copy; Pure Detail {new Date().getFullYear()}. All Rights reserved.</small>
           </div>
         </div>
       </Limiter>

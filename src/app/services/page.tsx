@@ -20,14 +20,14 @@ const servicesByCategory = allServices.reduce((acc, service) => {
     <>
       <Banner title='Services' bgImgClass="servicesBanner" hasButton={false} />
       <Section>
-        <HighLightedTitle text="Car detailing" />
-        <div className="relative flex flex-col gap-8">
+        <div className="relative flex flex-col  gap-8">
           {Object.entries(servicesByCategory).map(([category, services]) => (
             <div key={category} id={category.replace(' ', '-').toLowerCase()}>
-              <h2 className="text-xl font-bold mb-4">{category}</h2>
+              <HighLightedTitle text={category} className='' />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24">
-                {services.map((service) => (
+              <div className="flex lg:flex-row flex-col flex-wrap justify-between gap-10 mt-12">
+                {services.map((service, i) => (
+                  <>
                   <ServiceCard
                     bottomText={service.bottomText}
                     btnText={service.btnText}
@@ -40,12 +40,16 @@ const servicesByCategory = allServices.reduce((acc, service) => {
                     key={service.title}
                     hasButton={true}
                   />
+                  {(i+1 === services.length) && services.length%3!=0 && <div className='w-[320px]'></div>}
+                  </>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <HighLightedText> *Final pricing may vary depending on the vehicle's condition anda ny add-on services selected. You'll always be quoted before work begins.</HighLightedText>
+        <div className="w-full flex justify-center my-24">
+          <HighLightedText className='lg:w-[600px] w-full text-center text-lg'> *Final pricing may vary depending on the vehicle's condition and any add-on services selected. You'll always be quoted before work begins.</HighLightedText>
+        </div>
 
       </Section>
     </>

@@ -102,7 +102,7 @@ export const allServices:ServiceType[] = [
       'Removes light to moderate surface soratches',
       'Restores deep gloss and olaritty',
     ],
-    priceText:'$399',
+    priceText:'From $399',
     btnText:'Book Car Polish',
     imgUrl:servicesImgsDirectory+'/car-polish.jpg',
     category:'Restoration & revival'
@@ -115,7 +115,7 @@ export const allServices:ServiceType[] = [
       'Removes water spots, stains and light scratches',
       'Improves clarity and visibility',
     ],
-    priceText:'$199',
+    priceText:'From $199 per glass',
     btnText:'Book Glass Polish',
     imgUrl:servicesImgsDirectory+'/glass-polish.jpg',
     category:'Restoration & revival'

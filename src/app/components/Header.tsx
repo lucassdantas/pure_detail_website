@@ -9,10 +9,10 @@ export const Header = () => {
   const changePathName = (newPathName:string) => setPathName(newPathName)
   
   return (
-    <header className='flex justify-center py-4 -mb-20 z-10 relative'>
+    <header className='flex justify-center pt-8 text-lg -mb-20 z-10 relative'>
       <Limiter className='flex justify-between'>
         <nav className='w-[20%]'>
-          <ul className='flex justify-between w-1/4 gap-4'>
+          <ul className='flex justify-between w-1/4 gap-6'>
             <Link href='/' className={`headerMenu transition-colors ${location.pathname === '/' && 'headerMenuActive'}`} onClick={() => changePathName('/')}>
               <li>Home</li>
             </Link>

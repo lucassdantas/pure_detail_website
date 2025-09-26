@@ -15,7 +15,7 @@ export default function Home() {
       <Banner title='Detail That Delivers' bgImgClass="homeBanner" hasButton={true} button={{text:'Book a Detail', url:'/book'}}/>
       <Section id='services'>
         <HighLightedTitle text="Choose your clean" />
-        <div className='relative flex gap-4 justify-between items-stretch'>
+        <div className='relative w-full flex flex-wrap lg:flex-row flex-col  gap-4 space-y-12 lg:justify-between lg:items-stretch items-center'>
           {featuredServices.services.map((service, i) => {
             return (
               <ServiceCard 
@@ -33,13 +33,15 @@ export default function Home() {
             )
           })}
         </div>
-        <CircleButon text='View All Services' url='/services'/>
+        <div className="w-full flex justify-center my-18">
+          <CircleButon text='View All Services' url='/services'/>
+        </div>
       </Section>
       <Section id="about">
           <HighLightedTitle text='About'/>
-          <div className='flex justify-center gap-24 items-center px-[80px]'>
-            <img src='/imgs/about/professional-cleaning-a-car.jpg' alt='Car professional working' className='rounded-lg w-1/2 '/>
-            <div className='font-bold gap-4 text-xl w-1/2 space-y-4'>
+          <div className='flex lg:flex-row flex-col justify-center gap-24 items-center px-[80px]'>
+            <img src='/imgs/about/professional-cleaning-a-car.jpg' alt='Car professional working' className='rounded-lg lg:w-1/3 w-full '/>
+            <div className='font-bold gap-4 text-2xl lg:w-1/2 w-full space-y-4'>
               <p>
                 We're a locally-owned detailing business with one mission: to make every car look and feel its best.
                 <br/> 
@@ -51,17 +53,17 @@ export default function Home() {
             </div>
           </div>
       </Section>
-      <Section>
+      <Section id='transformations' className='my-12'>
           <HighLightedTitle text='Transformations'/>
-          <div className='flex justify-between items-stretch gap-12'>
+          <div className='flex lg:flex-row flex-col  justify-between items-stretch gap-12'>
             {transformations.map((transformation, i) => {
               return <BeforeAndAfter dirtyImg={transformation.dirtyImg} cleanImg={transformation.cleanImg} key={transformation.cleanImg+i}/>
             })}
           </div>
       </Section>
-      <Section id='reviews'>
+      <Section id='reviews' className='mb-32'>
         <HighLightedTitle text='Reviews'/>
-        <div className='flex justify-between items-stretch gap-12'>
+        <div className='flex lg:flex-row flex-col justify-between items-stretch gap-12'>
           {reviews.map((review, i) => {
             return <Reviews text={review.text} author={review.author} key={review.id} id={review.id}/>
           })}

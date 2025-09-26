@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
+import {Michroma} from 'next/font/google'
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 import "./globals.css";
 
+const michromaFont = Michroma({
+  weight:['400'],
+  subsets:['latin'],
+})
 
 const euroStileFont = localFont({
   src: [
@@ -49,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${generalSansFont.variable} ${euroStileFont.variable} antialiased bg-black text-white`}>
+      <body className={`${generalSansFont.variable} ${michromaFont.className} antialiased bg-black text-white`}>
         <Header/>
         <main>
           {children}
