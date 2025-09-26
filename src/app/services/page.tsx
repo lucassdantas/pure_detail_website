@@ -1,4 +1,5 @@
 import { Banner } from "@/app/components/Banner";
+import { HighLightedText } from "@/app/components/HighLightedText";
 import { HighLightedTitle } from "@/app/components/HighLightedTitle";
 import { Section } from "@/app/components/Section";
 import { ServiceCard } from "@/app/components/ServiceCard";
@@ -22,10 +23,10 @@ const servicesByCategory = allServices.reduce((acc, service) => {
         <HighLightedTitle text="Car detailing" />
         <div className="relative flex flex-col gap-8">
           {Object.entries(servicesByCategory).map(([category, services]) => (
-            <div key={category}>
+            <div key={category} id={category.replace(' ', '-').toLowerCase()}>
               <h2 className="text-xl font-bold mb-4">{category}</h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24">
                 {services.map((service) => (
                   <ServiceCard
                     bottomText={service.bottomText}
@@ -44,9 +45,8 @@ const servicesByCategory = allServices.reduce((acc, service) => {
             </div>
           ))}
         </div>
-        <p className='italic p-2 border-2'>
-          *Final pricing may vary depending on the vehicle's condition anda ny add-on services selected. You'll always be quoted before work begins.
-        </p>
+        <HighLightedText> *Final pricing may vary depending on the vehicle's condition anda ny add-on services selected. You'll always be quoted before work begins.</HighLightedText>
+
       </Section>
     </>
   );

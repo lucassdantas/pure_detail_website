@@ -4,7 +4,7 @@ import React from 'react'
 
 export const Button = ({text, url, className = ''}:ButtonType) => {
   return (
-    <Link href={url} className={`relative p-y px-2 text-center border-2 border-white cursor-pointer ${className}`}>
+    <Link href={url} className={`relative py-1 px-2 text-center text-xl border-2 font-bold border-white cursor-pointer hover:text-2xl transition-all ${className}`}>
       {text}
     </Link>
   )

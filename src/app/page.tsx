@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Banner title='Detail That Delivers' bgImgClass="homeBanner" hasButton={true} button={{text:'Book a Detail', url:'/book'}}/>
-      <Section>
+      <Section id='services'>
         <HighLightedTitle text="Choose your clean" />
         <div className='relative flex gap-4 justify-between items-stretch'>
           {featuredServices.services.map((service, i) => {
@@ -27,7 +27,7 @@ export default function Home() {
                 priceText={service.priceText}
                 title={service.title}
                 upperText={service.upperText}
-                key={service.title}
+                key={'home'+service.title}
                 hasButton={false}
               />
             )
@@ -35,7 +35,7 @@ export default function Home() {
         </div>
         <CircleButon text='View All Services' url='/services'/>
       </Section>
-      <Section>
+      <Section id="about">
           <HighLightedTitle text='About'/>
           <div className='flex justify-center gap-24 items-center px-[80px]'>
             <img src='/imgs/about/professional-cleaning-a-car.jpg' alt='Car professional working' className='rounded-lg w-1/2 '/>
@@ -54,15 +54,15 @@ export default function Home() {
       <Section>
           <HighLightedTitle text='Transformations'/>
           <div className='flex justify-between items-stretch gap-12'>
-            {transformations.map(transformation => {
-              return <BeforeAndAfter dirtyImg={transformation.dirtyImg} cleanImg={transformation.cleanImg} key={transformation.cleanImg}/>
+            {transformations.map((transformation, i) => {
+              return <BeforeAndAfter dirtyImg={transformation.dirtyImg} cleanImg={transformation.cleanImg} key={transformation.cleanImg+i}/>
             })}
           </div>
       </Section>
-      <Section>
+      <Section id='reviews'>
         <HighLightedTitle text='Reviews'/>
         <div className='flex justify-between items-stretch gap-12'>
-          {reviews.map(review => {
+          {reviews.map((review, i) => {
             return <Reviews text={review.text} author={review.author} key={review.id} id={review.id}/>
           })}
         </div>

@@ -12,17 +12,17 @@ export const Footer = () => {
     {
       title: 'Home',
       links: [
-        {name:'About', link:'/home/#about'},
-        {name:'Services', link:'/home/#services'},
-        {name:'Reviews', link:'/home/#reviews'},
+        {name:'About', link:'/#about'},
+        {name:'Services', link:'/#services'},
+        {name:'Reviews', link:'/#reviews'},
       ]
     },
     {
       title: 'Our Services',
       links: [
-        {name:'Detailing', link:'/services/#detailing'},
-        {name:'Services', link:'/services/#ceramic_coating'},
-        {name:'Reviews', link:'/services/#headlight_restoration'},
+        {name:'Detailing', link:'/services/#car-detailing'},
+        {name:'Ceramic Coating', link:'/services/#ceramic-coating'},
+        {name:'Headlight Restoration', link:'/services/#headlight-restoration'},
       ]
     }
 

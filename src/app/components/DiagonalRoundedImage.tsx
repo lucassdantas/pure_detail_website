@@ -7,8 +7,8 @@ type Props = {
 export const DiagonalRoundedImage = ({ imgUrl, alt, cardId}: Props) => {
   return (
     <svg
-      width="346"
-      height="417"
+      width="306"
+      height="317"
       viewBox="0 0 346 417"
       xmlns="http://www.w3.org/2000/svg"
       className="block"
