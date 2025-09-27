@@ -34,14 +34,6 @@ h1, h2, .title{
   border-radius:999px; 
 }
 
-.service-card .bottomTitleContainer{
-  background: #FFF;
-  border:unset; 
-  outline:unset;
- background-image: 
-    radial-gradient(ellipse 100% 100% at bottom right, #99a1af 0%, #fff 100%);
-}
-
 .bannerSection{
   background-size:cover; 
   background-position: center;
