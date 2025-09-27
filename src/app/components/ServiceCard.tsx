@@ -8,14 +8,16 @@ type ServiceCardProps = ServiceType & {
 }
 export const ServiceCard = ({upperText, bottomText, title, detailsList, priceText, btnText, imgUrl, category, hasButton = true}:ServiceCardProps) => {
   return (
-    <div className='service-card min-h-full flex flex-col justify-between max-w-[330px]' id={title.replace(' ', '-').toLowerCase()}>
+    <div className='service-card min-h-full flex flex-col justify-between max-w-[330px] z-0' id={title.replace(' ', '-').toLowerCase()}>
      
       <div className=''>
-        <div className={`w-full relative flex flex-col items-center p-4 border-4 border-accent-yellow bg-radial from-white from-60% to-gray-400 rounded-lg text-black mb-10`}>
+        <div className={`w-full relative flex flex-col items-center p-2  border-4 border-accent-yellow bg-radial from-white from-60% to-gray-400 rounded-lg text-black mb-10`}>
           <div>
-            <h3 className='title font-black text-left text-4xl uppercase ml-4'>{upperText}</h3>
+            <h3 className='title font-black text-left text-3xl uppercase ml-4 -mb-4'>{upperText}</h3>
             <DiagonalRoundedImage imgUrl={imgUrl} alt={title} cardId={imgUrl}  />
-            <h3 className='title bg-radial-[at_100%_100%] text-right  from-transparent to-white to-[60%] font-black w-fit  rounded-lg absolute bottom-1 right-[18px] text-4xl uppercase p-4'>{bottomText}</h3>
+           <div className="bottomTitleContainer  w-[63%] h-[70px] pb-[2px] pt-[8px] pl-[8px] absolute bottom-0 right-0 overflow-hidden rounded-t-[20px]" >
+              <h3 className='title font-black text-3xl uppercase '>{bottomText}</h3>
+            </div>
           </div>
         </div>
 
