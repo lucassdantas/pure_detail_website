@@ -31,8 +31,9 @@ export const Footer = () => {
     <footer className='bg-white text-black py-12  w-full'>
       <Limiter className='flex flex-col justify-between gap-12 xl:px-0 px-6'>
         <div className="flex justify-between">
-          <div className='bg-black w-2/4 h-[140px]'></div>
-          {/* <img src='' alt='pure detail logo footer'/> */}
+          <div className='bg-black w-4/6 h-[140px]'>
+            {/* <img src='' alt='pure detail logo footer'/> */}
+          </div>
           {footerColumns.map((column, i ) => {
             return (
               <div key={column.title}>
@@ -45,7 +46,7 @@ export const Footer = () => {
           })}
         </div>
         <div className='flex justify-between'>
-          <div className="flex gap-2 text-2xl gap-4">
+          <div className="flex  text-2xl gap-4">
             <Link href={tiktokUrl}>
               <BsTiktok/>
             </Link>
