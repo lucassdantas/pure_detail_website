@@ -80,6 +80,7 @@ export const VehicleInfoForm = () => {
         <fieldset key={field.nameToCode}>
           <input name={field.nameToCode} id={field.nameToCode} type={field.type} placeholder={field.name} className='underline-offset-1' />
           <label htmlFor={field.nameToCode} className='text-lg'>{field.name} </label>
+          {field.showNestedOptions && ''}
         </fieldset>
       ))}
       <fieldset>
