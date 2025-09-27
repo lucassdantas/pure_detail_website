@@ -29,11 +29,9 @@ export const Footer = () => {
   ] 
   return (
     <footer className='bg-white text-black py-12  w-full'>
-      <Limiter className='flex flex-col justify-between gap-12 xl:px-0 px-6'>
+      <Limiter className='flex flex-col justify-between gap-18 xl:px-0 px-6'>
         <div className="flex justify-between">
-          <div className='bg-black w-4/6 h-[140px]'>
-            {/* <img src='' alt='pure detail logo footer'/> */}
-          </div>
+          <img src='/imgs/brandmark-logo-puredetail.png' alt='pure detail logo footer' className='w-3/6'/>
           {footerColumns.map((column, i ) => {
             return (
               <div key={column.title}>
@@ -41,6 +39,14 @@ export const Footer = () => {
                 <ul className=''>
                   {column.links.map((menuLink, i2) => <Link href={menuLink.link} key={menuLink.link}><li>{menuLink.name}</li></Link>)}
                 </ul>
+                {i == footerColumns.length-1 && <>
+                  <h4 className='text-2xl uppercase font-bold mb-2 mt-4'>Policies</h4>
+                  <ul>
+                    <Link href='/privacy-policy'><li>Privacy Policy</li></Link>
+                    <Link href='/terms-and-conditions'><li>Terms & Conditions</li></Link>
+                  </ul>
+                </>
+                }
               </div>
             ) 
           })}
