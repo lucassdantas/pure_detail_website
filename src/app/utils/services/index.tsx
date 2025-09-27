@@ -81,7 +81,7 @@ export const allServices:ServiceType[] = [
   },
   {
     upperText:'Rims',
-    bottomText:'Restor-ation',
+    bottomText:'Reno-vation',
     title:'Rims Renovation',
     detailsList:[
       'Rims removed from treatment',

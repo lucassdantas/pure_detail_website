@@ -1,6 +1,6 @@
-export const tiktokUrl = ''
+export const tiktokUrl = 'https://www.tiktok.com/@puredetailnz'
 export const instagramUrl = ''
-export const facebookUrl = ''
+export const facebookUrl = 'https://www.facebook.com/profile.php?id=61578328047059'
 export const phone = '+64 21 242 0008'
 export const phoneUrl = '+64212420008'
 export const email = 'contact@puredetail.co.nz'

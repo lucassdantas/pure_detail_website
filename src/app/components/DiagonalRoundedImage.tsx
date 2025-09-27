@@ -6,7 +6,6 @@ type Props = {
 };
 
 export const DiagonalRoundedImage = ({ imgUrl, alt, cardId, bottomTitleLength }: Props) => {
-  console.log(bottomTitleLength)
   const bottomCutOptionsByTitleLength = {
     default:`
         H121.5
