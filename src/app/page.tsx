@@ -57,7 +57,7 @@ export default function Home() {
           <HighLightedTitle text='Transformations'/>
           <div className='flex lg:flex-row flex-col  justify-between items-stretch gap-12'>
             {transformations.map((transformation, i) => {
-              return <BeforeAndAfter dirtyImg={transformation.dirtyImg} cleanImg={transformation.cleanImg} key={transformation.cleanImg+i}/>
+              return <BeforeAndAfter dirtyImage={transformation.dirtyImg} cleanImage={transformation.cleanImg} key={transformation.cleanImg+i}/>
             })}
           </div>
       </Section>

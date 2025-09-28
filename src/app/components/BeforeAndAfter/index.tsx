@@ -1,87 +1,107 @@
-'use client'
-import React, { useRef, useState, useEffect } from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 
 type BeforeAndAfterProps = {
-  dirtyImg: string; // imagem do carro sujo
-  cleanImg: string;  // imagem do carro limpo
+  dirtyImage: string;
+  cleanImage: string;
 };
 
-export const BeforeAndAfter: React.FC<BeforeAndAfterProps> = ({
-  dirtyImg,
-  cleanImg,
-}) => {
+export const BeforeAndAfter: React.FC<BeforeAndAfterProps> = ({ dirtyImage, cleanImage }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState(50); // posição inicial da linha (em %)
+  const [position, setPosition] = useState(50); // posição da linha em %
   const [isDragging, setIsDragging] = useState(false);
+  const [autoMove, setAutoMove] = useState(true);
 
-  // Animação automática no hover
+  // Movimento automático (vai e volta enquanto não estiver arrastando)
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (!isDragging) {
-      interval = setInterval(() => {
-        setPosition((prev) => {
-          if (prev >= 70) return 30; // vai pro outro lado
-          if (prev <= 30) return 70;
-          return prev + 20; // movimento oscilante
-        });
-      }, 2000);
-    }
+    if (!autoMove) return;
+
+    let direction = 1;
+    const interval = setInterval(() => {
+      setPosition((prev) => {
+        if (prev >= 90) direction = -1;
+        if (prev <= 10) direction = 1;
+        return prev + direction * 0.5; // velocidade
+      });
+    }, 30);
+
     return () => clearInterval(interval);
-  }, [isDragging]);
+  }, [autoMove]);
 
-  const startDrag = () => setIsDragging(true);
-  const stopDrag = () => setIsDragging(false);
-
-  const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging || !containerRef.current) return;
-
-    const bounds = containerRef.current.getBoundingClientRect();
-    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    const newPosition = ((clientX - bounds.left) / bounds.width) * 100;
-
-    if (newPosition >= 0 && newPosition <= 100) {
-      setPosition(newPosition);
-    }
+  // Função utilitária para calcular posição baseada no clique
+  const calculatePosition = (clientX: number) => {
+    if (!containerRef.current) return position;
+    const rect = containerRef.current.getBoundingClientRect();
+    const newPos = ((clientX - rect.left) / rect.width) * 100;
+    return Math.min(100, Math.max(0, newPos));
   };
+
+  // Arraste com mouse
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isDragging) return;
+    setPosition(calculatePosition(e.clientX));
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setPosition(calculatePosition(e.clientX)); // já move no clique
+    setIsDragging(true);
+    setAutoMove(false); // pausa automático
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    setAutoMove(true); // volta a se mexer sozinho
+  };
+
+  // Eventos globais de arraste
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    } else {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto h-[400px] overflow-hidden cursor-col-resize select-none"
-      onMouseMove={handleMove}
-      onTouchMove={handleMove}
-      onMouseLeave={stopDrag}
-      onMouseUp={stopDrag}
-      onTouchEnd={stopDrag}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-2xl shadow-lg select-none"
     >
-      {/* imagem de fundo (carro limpo) */}
+      {/* Imagem limpa (fundo) */}
       <img
-        src={cleanImg}
-        alt="Carro limpo"
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        src={cleanImage}
+        alt="Depois"
+        className="w-full h-auto block pointer-events-none"
       />
 
-      {/* imagem da frente (carro sujo) cortada */}
-      <div
-        className="absolute top-0 left-0 h-full overflow-hidden"
-        style={{ width: `${position}%` }}
-      >
-        <img
-          src={dirtyImg}
-          alt="Carro sujo"
-          className="w-full h-full object-cover"
-        />
-      </div>
+      {/* Imagem suja (clippada) */}
+      <img
+        src={dirtyImage}
+        alt="Antes"
+        className="absolute top-0 left-0 w-full h-auto block pointer-events-none"
+        style={{
+          clipPath: `inset(0 ${100 - position}% 0 0)`,
+        }}
+      />
 
-      {/* linha divisória */}
+      {/* Linha divisória (clicável na área toda) */}
       <div
-        className="absolute top-0 h-full w-[4px] bg-accent-yellow cursor-col-resize transition-all"
-        style={{ left: `${position}%`, transform: "translateX(-50%)" }}
-        onMouseDown={startDrag}
-        onTouchStart={startDrag}
+        className="absolute top-0 h-full w-6 -ml-3 cursor-col-resize flex items-center justify-center"
+        style={{ left: `${position}%` }}
+        onMouseDown={handleMouseDown}
       >
-        {/* bolinha para indicar arrasto */}
-        <div className="absolute top-1/2 left-1/2 w-6 h-6 bg-white border-2 border-accent-yellow rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg" />
+        {/* linha */}
+        <div className="h-full w-1 bg-white shadow-[0_0_5px_rgba(0,0,0,0.5)]"></div>
+
+        {/* bolinha de arraste */}
+        <div className="absolute w-5 h-5 bg-white rounded-full shadow-md border border-gray-300"></div>
       </div>
     </div>
   );
