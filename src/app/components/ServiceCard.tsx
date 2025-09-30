@@ -1,5 +1,6 @@
 import { CircleButon } from '@/app/components/CircleButon'
 import { DiagonalRoundedImage } from '@/app/components/DiagonalRoundedImage'
+import { Title } from '@/app/components/Title'
 import { ServiceType } from '@/app/types/ServiceType'
 import React from 'react'
 
@@ -25,7 +26,7 @@ const BottomTitle = ({bottomText}:{bottomText:string}) => {
     return bottomTextPositoinByTextLength.default
   }
 return(
-  <h3 className={`
+  <Title tag='h3' className={`
     title font-black text-3xl uppercase  
     ${returnCurrentTextPosition(bottomText.length)}
     pb-[2px] pt-[8px] pl-[8px] 
@@ -33,7 +34,7 @@ return(
     break-words
   `}>
     {bottomText}
-  </h3>
+  </Title>
 )
 }
 export const ServiceCard = ({upperText, bottomText, title, detailsList, priceText, btnText, imgUrl, category, hasButton = true}:ServiceCardProps) => {
@@ -43,7 +44,7 @@ export const ServiceCard = ({upperText, bottomText, title, detailsList, priceTex
       <div className=''>
         <div className={`w-full relative flex flex-col items-center p-2  border-4 border-accent-yellow bg-radial from-white from-60% to-gray-400 rounded-lg text-black mb-10`}>
           <div>
-            <h3 className='title font-black text-left text-3xl uppercase ml-1 -mb-4'>{upperText}</h3>
+            <Title tag='h3' className='title font-black text-left text-3xl uppercase ml-1 -mb-4'>{upperText}</Title>
             <DiagonalRoundedImage imgUrl={imgUrl} alt={title} cardId={imgUrl} bottomTitleLength={bottomText.length}  />
             <BottomTitle bottomText={bottomText}/>
           </div>

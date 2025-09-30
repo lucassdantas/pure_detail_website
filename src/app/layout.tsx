@@ -13,7 +13,7 @@ const michromaFont = Michroma({
 const euroStileFont = localFont({
   src: [
     {
-      path: '../fonts/EurostileExtendedBlack.ttf',
+      path: '../fonts/fonnts.com-Eurostile_Extd_Black.otf',
       weight: '900',
       style: 'normal',
     }
@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${generalSansFont.variable} ${michromaFont.className} antialiased bg-black text-white`}>
+      <body className={`${generalSansFont.variable} ${euroStileFont.className} antialiased bg-black text-white`}>
         <Header/>
         <main>
           {children}
