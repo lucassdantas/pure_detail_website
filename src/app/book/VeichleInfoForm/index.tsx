@@ -141,7 +141,16 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
 
   return (
     <form className="space-y-6">
-      <h2 className="text-xl font-semibold">Vehicle Info</h2>
+      <fieldset  className="border border-neutral-200 p-4 rounded bg-black hover:border-white">
+        <label className="flex items-center gap-2 cursor-pointer w-full ">
+          Vehicle Type:
+          <input
+            type="text"
+            className="border-b px-2 py-1  border-white bg-neutral-900 rounded cursor-pointer outline-0 "
+            placeholder='Make, Model'
+          />
+        </label>
+        </fieldset>
       {fields.map((field) => (
         <fieldset key={field.nameToCode} className="border border-neutral-200 p-4 rounded bg-black hover:border-white">
           <label className="flex items-center gap-2 cursor-pointer w-full ">
@@ -184,10 +193,13 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
       ))}
 
       {/* Upload de fotos */}
-      <fieldset className="space-y-2 border p-4 rounded">
+      <fieldset
+        className="space-y-2 border p-4 rounded cursor-pointer"
+        onClick={() => document.getElementById("photos")?.click()} // dispara o input
+      >
         <label htmlFor="photos" className="text-lg font-medium">Upload Photos (optional)</label>
 
-        <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 cursor-pointer hover:border-light-yellow transition">
+        <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 hover:border-light-yellow transition">
           <input
             type="file"
             id="photos"
@@ -196,16 +208,14 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
             onChange={handlePhotoChange}
             className="hidden"
           />
-          <label htmlFor="photos" className=" cursor-pointer font-semibold">
-            Click to upload or drag & drop
-          </label>
+          <p className="cursor-pointer font-semibold">Click to upload or drag & drop</p>
           <p className="text-sm text-gray-400 mt-1">PNG, JPG up to 5MB each</p>
         </div>
 
         {photos.length > 0 && (
-          <div className="grid grid-cols-3 gap-3 mt-3">
+          <div className="flex gap-3 mt-3">
             {photos.map((file, index) => (
-              <div key={index} className="relative group">
+              <div key={index} className="relative group w-fit">
                 <img
                   src={URL.createObjectURL(file)}
                   alt={file.name}
@@ -213,8 +223,8 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
                 />
                 <button
                   type="button"
-                  onClick={() => handleRemovePhoto(index)}
-                  className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition"
+                  onClick={(e) => { e.stopPropagation(); handleRemovePhoto(index); }} // impede que o click abra o input
+                  className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition cursor-pointer"
                 >
                   ✕
                 </button>
@@ -223,6 +233,7 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
           </div>
         )}
       </fieldset>
+
     </form>
   );
 };
