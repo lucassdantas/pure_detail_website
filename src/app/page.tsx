@@ -37,7 +37,7 @@ export default function Home() {
           <CircleButon text='View All Services' url='/services'/>
         </div>
       </Section>
-      <Section id="about">
+      <Section id="about" className='pb-18'>
           <HighLightedTitle text='About'/>
           <div className='flex lg:flex-row flex-col justify-center gap-24 items-center lg:px-[80px]'>
             <img src='/imgs/about/professional-cleaning-a-car.jpg' alt='Car professional working' className='rounded-lg lg:w-1/3 w-full '/>
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
           </div>
       </Section>
-      <Section id='transformations' className='my-12'>
+      <Section id='transformations' className='my-12 hidden' >
           <HighLightedTitle text='Transformations'/>
           <div className='flex lg:flex-row flex-col  justify-between items-stretch gap-12'>
             {transformations.map((transformation, i) => {
@@ -61,7 +61,7 @@ export default function Home() {
             })}
           </div>
       </Section>
-      <Section id='reviews' className='mb-32'>
+      <Section id='reviews' className='mb-32 hidden'>
         <HighLightedTitle text='Reviews'/>
         <div className='flex lg:flex-row flex-col justify-between items-stretch gap-12'>
           {reviews.map((review, i) => {
