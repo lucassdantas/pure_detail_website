@@ -25,7 +25,7 @@ const servicesByCategory = allServices.reduce((acc, service) => {
             <div key={category} id={category.replace(' ', '-').toLowerCase()}>
               <HighLightedTitle text={category} className='' />
 
-              <div className="flex lg:flex-row flex-col flex-wrap justify-between gap-14 mt-12">
+              <div className="flex lg:flex-row flex-col flex-wrap lg:justify-between items-center gap-14 mt-12">
                 {services.map((service, i) => (
                   <>
                   <ServiceCard
