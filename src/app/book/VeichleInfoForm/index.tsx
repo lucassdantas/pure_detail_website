@@ -1,19 +1,11 @@
-'use client'
 import React, { useState } from "react";
 
-// Tipos para nestedOptions
-type NestedOption =
-  | {
-      name: string;
-      type: "select";
-      options: string[];
-    }
-  | {
-      name: string;
-      type: "text";
-      placeholder: string;
-      options: never[];
-    };
+type NestedOption = {
+  name: string;
+  type: "select" | "text";
+  options?: string[];
+  placeholder?: string;
+};
 
 type Field = {
   name: string;
@@ -22,8 +14,13 @@ type Field = {
   nestedOptions: NestedOption[];
 };
 
-export const VehicleInfoForm = () => {
-  const [selectedServices, setSelectedServices] = useState<{ [key: string]: boolean }>({});
+interface VehicleInfoFormProps {
+  onChange: (data: Record<string, any>) => void;
+}
+
+export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) => {
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [photos, setPhotos] = useState<File[]>([]);
 
   const fields: Field[] = [
     {
@@ -113,47 +110,61 @@ export const VehicleInfoForm = () => {
     },
   ];
 
-  const handleCheckboxChange = (name: string) => {
-    setSelectedServices((prev) => ({
-      ...prev,
-      [name]: !prev[name],
-    }));
+  const handleCheckboxChange = (field: Field, checked: boolean) => {
+    const updatedData = { ...formData, [field.nameToCode]: checked ? {} : false };
+    setFormData(updatedData);
+    onChange({ ...updatedData, photos });
+  };
+
+  const handleNestedChange = (fieldCode: string, optionName: string, value: string) => {
+    const updatedData = {
+      ...formData,
+      [fieldCode]: { ...formData[fieldCode], [optionName]: value },
+    };
+    setFormData(updatedData);
+    onChange({ ...updatedData, photos });
+  };
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const newPhotos = [...photos, ...Array.from(e.target.files)];
+      setPhotos(newPhotos);
+      onChange({ ...formData, photos: newPhotos });
+    }
+  };
+
+  const handleRemovePhoto = (index: number) => {
+    const newPhotos = photos.filter((_, i) => i !== index);
+    setPhotos(newPhotos);
+    onChange({ ...formData, photos: newPhotos });
   };
 
   return (
-    <form className="space-y-4 text-white">
-      <fieldset>
-        <label htmlFor={"Vehicle"} className="text-lg">
-          Vehicle:
-        </label>
-        <input placeholder="Make, Model " className="border px-2 py-1 rounded bg-white text-black" />
-      </fieldset>
-
-      <h3 className="text-xl font-semibold">Services Selection</h3>
-
+    <form className="space-y-6">
+      <h2 className="text-xl font-semibold">Vehicle Info</h2>
       {fields.map((field) => (
-        <fieldset key={field.nameToCode} className="space-y-2 border p-3 rounded">
-          <div>
+        <fieldset key={field.nameToCode} className="border border-neutral-200 p-4 rounded bg-black hover:border-white">
+          <label className="flex items-center gap-2 cursor-pointer w-full ">
             <input
-              name={field.nameToCode}
-              id={field.nameToCode}
-              type={field.type}
-              checked={!!selectedServices[field.nameToCode]}
-              onChange={() => handleCheckboxChange(field.nameToCode)}
+              type="checkbox"
+              checked={!!formData[field.nameToCode]}
+              onChange={(e) => handleCheckboxChange(field, e.target.checked)}
+              className="w-4 h-4 cursor-pointer "
             />
-            <label htmlFor={field.nameToCode} className="ml-2 text-lg">
-              {field.name}
-            </label>
-          </div>
+            <span className="font-medium">{field.name}</span>
+          </label>
 
-          {/* Mostrar nestedOptions apenas se o checkbox estiver marcado */}
-          {selectedServices[field.nameToCode] &&
-            field.nestedOptions.map((nested) => (
-              <div key={nested.name} className="ml-6 mt-2">
-                <label className="block text-sm font-medium">{nested.name}</label>
+          {formData[field.nameToCode] &&
+            field.nestedOptions.map((nested, idx) => (
+              <div key={idx} className="mt-2 ml-6">
+                <label className="block text-sm font-medium mb-1">{nested.name}</label>
                 {nested.type === "select" ? (
-                  <select className="border px-2 py-1 rounded w-full bg-black text-white">
-                    {nested.options.map((opt) => (
+                  <select
+                    className="border rounded p-2 w-full hover:border-light-yellow bg-black"
+                    onChange={(e) => handleNestedChange(field.nameToCode, nested.name, e.target.value)}
+                  >
+                    <option value="">Select...</option>
+                    {nested.options?.map((opt) => (
                       <option key={opt} value={opt}>
                         {opt}
                       </option>
@@ -163,7 +174,8 @@ export const VehicleInfoForm = () => {
                   <input
                     type="text"
                     placeholder={nested.placeholder}
-                    className="border px-2 py-1 rounded w-full bg-white text-black"
+                    className="border rounded p-2 w-full outline-0"
+                    onChange={(e) => handleNestedChange(field.nameToCode, nested.name, e.target.value)}
                   />
                 )}
               </div>
@@ -171,9 +183,45 @@ export const VehicleInfoForm = () => {
         </fieldset>
       ))}
 
-      <fieldset>
-        <label htmlFor={"optionalUpload"}>Upload photos (optional)</label>
-        <input name="optionalUpload" id="optionalUpload" type="file" className="block mt-1" />
+      {/* Upload de fotos */}
+      <fieldset className="space-y-2 border p-4 rounded">
+        <label htmlFor="photos" className="text-lg font-medium">Upload Photos (optional)</label>
+
+        <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 cursor-pointer hover:border-light-yellow transition">
+          <input
+            type="file"
+            id="photos"
+            multiple
+            accept="image/*"
+            onChange={handlePhotoChange}
+            className="hidden"
+          />
+          <label htmlFor="photos" className=" cursor-pointer font-semibold">
+            Click to upload or drag & drop
+          </label>
+          <p className="text-sm text-gray-400 mt-1">PNG, JPG up to 5MB each</p>
+        </div>
+
+        {photos.length > 0 && (
+          <div className="grid grid-cols-3 gap-3 mt-3">
+            {photos.map((file, index) => (
+              <div key={index} className="relative group">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  className="h-24 w-24 object-cover rounded-lg border"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemovePhoto(index)}
+                  className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </fieldset>
     </form>
   );

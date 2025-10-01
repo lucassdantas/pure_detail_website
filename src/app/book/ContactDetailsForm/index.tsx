@@ -1,27 +1,90 @@
-import React from 'react'
+'use client'
+import React from "react";
 
-export const ContactDetailsForm = () => {
-  const fields = [
-    {name:'Name', nameToCode:'name', type:'text'},
-    {name:'Suburg/Area', nameToCode:'suburb', type:'text'},
-    {name:'Phone', nameToCode:'phone', type:'text'},
-    {name:'Email', nameToCode:'email', type:'email'},
-  ]
+interface ContactDetailsFormProps {
+  name: string;
+  setName: (v: string) => void;
+  suburb: string;
+  setSuburb: (v: string) => void;
+  phone: string;
+  setPhone: (v: string) => void;
+  email: string;
+  setEmail: (v: string) => void;
+  preferedContactMethod: string;
+  setPreferedContactMethod: (v: string) => void;
+}
+
+export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
+  name,
+  setName,
+  suburb,
+  setSuburb,
+  phone,
+  setPhone,
+  email,
+  setEmail,
+  preferedContactMethod,
+  setPreferedContactMethod,
+}) => {
   return (
-    <form>
-      {fields.map(field => (
-        <fieldset key={field.nameToCode}>
-          <label htmlFor={field.nameToCode} className='text-lg'>{field.name}: </label>
-          <input name={field.nameToCode} id={field.nameToCode} type={field.type} className='underline-offset-1' />
-        </fieldset>
-      ))}
-      <fieldset>
-        <label htmlFor={'contactMethod'}>Preferred contact method</label>
-        <select name='contactMethod' id='contactMethod' >
-          <option value='email' className='text-black hover:text-black'>E-mail</option>
-          <option value='phone' className='text-black hover:text-black'>Phone</option>
+    <div className="space-y-4 text-white">
+      <fieldset className="space-y-2 border p-3 rounded">
+        <label htmlFor="name" className="text-lg">Name:</label>
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border px-2 py-1 rounded bg-white text-black w-full"
+        />
+      </fieldset>
+
+      <fieldset className="space-y-2 border p-3 rounded">
+        <label htmlFor="suburb" className="text-lg">Suburb/Area:</label>
+        <input
+          id="suburb"
+          type="text"
+          value={suburb}
+          onChange={(e) => setSuburb(e.target.value)}
+          className="border px-2 py-1 rounded bg-white text-black w-full"
+        />
+      </fieldset>
+
+      <fieldset className="space-y-2 border p-3 rounded">
+        <label htmlFor="phone" className="text-lg">Phone:</label>
+        <input
+          id="phone"
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="border px-2 py-1 rounded bg-white text-black w-full"
+        />
+      </fieldset>
+
+      <fieldset className="space-y-2 border p-3 rounded">
+        <label htmlFor="email" className="text-lg">Email:</label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border px-2 py-1 rounded bg-white text-black w-full"
+        />
+      </fieldset>
+
+      <fieldset className="space-y-2 border p-3 rounded">
+        <label htmlFor="contactMethod" className="text-lg">Preferred contact method:</label>
+        <select
+          id="contactMethod"
+          value={preferedContactMethod}
+          onChange={(e) => setPreferedContactMethod(e.target.value)}
+          className="border px-2 py-1 rounded w-full bg-black text-white"
+        >
+          <option value="">Select...</option>
+          <option value="email">E-mail</option>
+          <option value="phone">Phone</option>
         </select>
       </fieldset>
-    </form>
-  )
-}
+    </div>
+  );
+};

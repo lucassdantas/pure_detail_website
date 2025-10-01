@@ -27,9 +27,9 @@ const BottomTitle = ({bottomText}:{bottomText:string}) => {
   }
 return(
   <Title tag='h3' className={`
-    title font-black text-3xl uppercase  
+    title font-black text-3xl break-words uppercase  
     ${returnCurrentTextPosition(bottomText.length)}
-    pb-[2px] pt-[8px] pl-[8px] 
+    pb-[2px] pt-[8px] pl-[8px] pr-[12px]
     absolute bottom-0 right-0
     break-words
   `}>
