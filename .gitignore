@@ -2,6 +2,7 @@
 
 #customized 
 /info
+/public/backend/emailCredencials.php
 
 # dependencies
 /node_modules

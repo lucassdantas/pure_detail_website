@@ -35,7 +35,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border px-2 py-1 rounded bg-white text-black w-full"
+          className="border px-2 py-1 rounded bg-white text-black w-full outline-0"
         />
       </fieldset>
 
@@ -46,7 +46,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
           type="text"
           value={suburb}
           onChange={(e) => setSuburb(e.target.value)}
-          className="border px-2 py-1 rounded bg-white text-black w-full"
+          className="border px-2 py-1 rounded bg-white text-black w-full outline-0"
         />
       </fieldset>
 
@@ -57,7 +57,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
           type="text"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="border px-2 py-1 rounded bg-white text-black w-full"
+          className="border px-2 py-1 rounded bg-white text-black w-full outline-0"
         />
       </fieldset>
 
@@ -68,7 +68,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border px-2 py-1 rounded bg-white text-black w-full"
+          className="border px-2 py-1 rounded bg-white text-black w-full outline-0"
         />
       </fieldset>
 
@@ -78,7 +78,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
           id="contactMethod"
           value={preferedContactMethod}
           onChange={(e) => setPreferedContactMethod(e.target.value)}
-          className="border px-2 py-1 rounded w-full bg-black text-white"
+          className="border px-2 py-1 rounded w-full bg-black text-white outline-0"
         >
           <option value="">Select...</option>
           <option value="email">E-mail</option>
