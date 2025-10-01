@@ -1,14 +1,18 @@
 <?php
 // Ativar erros (remover em produção)
 error_reporting(E_ALL);
-ini_set("display_errors", 1);
+ini_set("display_errors", 0); // NÃO mostra no HTML
+ini_set("log_errors", 1);
+ini_set("error_log", __DIR__ . "/php-error.log"); // salva no arquivo
 
+header("Access-Control-Allow-Origin: *"); // Permite requisições de qualquer origem
+header("Access-Control-Allow-Methods: POST, OPTIONS"); // Permite apenas métodos específicos
+header("Access-Control-Allow-Headers: Content-Type"); // Permite cabeçalhos específicos
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require __DIR__ . '/PHPMailer/src/Exception.php';
-require __DIR__ . '/PHPMailer/src/PHPMailer.php';
-require __DIR__ . '/PHPMailer/src/SMTP.php';
+// Carregar PHPMailer via Composer
+require_once './vendor/autoload.php';
 
 // Verifica se foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -65,12 +69,12 @@ try {
     $mail->SMTPAuth   = true;
     $mail->Username   = $smtpEmail;
     $mail->Password   = $smtpPassword;
-    $mail->SMTPSecure = $smtpEncryption;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = $smtpPortNumber;
 
     // Remetente e destinatário
-    $mail->setFrom('seuemail@dominio.com', 'Site - Orçamentos');
-    $mail->addAddress('destino@dominio.com', 'Equipe de Vendas');
+    $mail->setFrom($smtpEmail, 'Site - Quotes');
+    $mail->addAddress($emailReceiver, 'Pure Detail');
 
     // Anexar fotos
     if (!empty($_FILES['photos'])) {
@@ -90,5 +94,11 @@ try {
     echo json_encode(["success" => true, "message" => "E-mail enviado com sucesso"]);
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(["success" => false, "message" => "Erro: {$mail->ErrorInfo}"]);
+    echo json_encode([
+        "success" => false,
+        "message" => "Erro ao enviar e-mail",
+        "mailer_error" => $mail->ErrorInfo ?? null,
+        "exception" => $e->getMessage(),
+        "trace" => $e->getTraceAsString()
+    ]);
 }
