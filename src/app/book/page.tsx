@@ -45,7 +45,7 @@ export default function BookPage() {
     }
 
     try {
-      const response = await fetch(siteUrl+"/backend/send-email.php", {
+      const response = await fetch(location.protocol+'//'+siteUrl+"/backend/send-email.php", {
         method: "POST",
         body: formData,
       });
