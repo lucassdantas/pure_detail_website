@@ -1,90 +1,94 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite requisições de qualquer origem
-header("Access-Control-Allow-Methods: POST, OPTIONS"); // Permite apenas métodos específicos
-header("Access-Control-Allow-Headers: Content-Type"); // Permite cabeçalhos específicos
+// Ativar erros (remover em produção)
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Carregar PHPMailer via Composer
-require_once 'vendor/autoload.php';
+require __DIR__ . '/PHPMailer/src/Exception.php';
+require __DIR__ . '/PHPMailer/src/PHPMailer.php';
+require __DIR__ . '/PHPMailer/src/SMTP.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Função para sanitizar inputs e evitar XSS
-    function sanitizeInput($data) {
-        return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
-    }
-
-    $name = sanitizeInput($_POST['name'] ?? '');
-    $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
-    $phone = sanitizeInput($_POST['phone'] ?? '');
-    $academyName = sanitizeInput($_POST['academyName'] ?? '');
-    $uf = sanitizeInput($_POST['uf'] ?? '');
-    $city = sanitizeInput($_POST['city'] ?? '');
-    $gymUnits = sanitizeInput($_POST['gymUnits'] ?? '');
-    $gymBilling = sanitizeInput($_POST['gymBilling'] ?? '');
-    $ecadValue = sanitizeInput($_POST['ecadValue'] ?? '');
-    $lightBilling = sanitizeInput($_POST['lightBilling'] ?? '');
-    $traineeLifeSecure = sanitizeInput($_POST['traineeLifeSecure'] ?? '');
-    $lawyerAccount = sanitizeInput($_POST['lawyerAccount'] ?? '');
-    $economyTotals = sanitizeInput($_POST['economyTotals'] ?? '');
-
-    // Validações
-    if (empty($name) || empty($email) || empty($phone)) {
-        echo json_encode(["success" => false, "message" => "Por favor, preencha todos os campos obrigatórios."]);
-        exit;
-    }
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo json_encode(["success" => false, "message" => "E-mail inválido."]);
-        exit;
-    }
-
-    // Configuração do PHPMailer
-    $mail = new PHPMailer(true);
-
-    try {
-        // Configurar o servidor SMTP
-        require_once './emailCredencials.php';
-        $mail->isSMTP();
-        $mail->Host       = $smtpHost; // Servidor SMTP (ex: smtp.gmail.com)
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $smtpEmail; // Seu e-mail SMTP
-        $mail->Password   = $smtpPassword; // Sua senha SMTP
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // TLS ou PHPMailer::ENCRYPTION_SMTPS para SSL
-        $mail->Port       = $smtpPortNumber; // Porta SMTP (465 para SSL, 587 para TLS)
-
-        // Configurar remetente e destinatário
-        $mail->setFrom($smtpEmail, $name);
-        $mail->addAddress($emailReceiver); // Para onde o formulário será enviado
-        $mail->addReplyTo($email, $name); // Permite responder ao remetente
-        $mail->addCC('contato@diagonal.ag'); // Envia uma cópia oculta para contato@diagonal.ag
-        // Conteúdo do e-mail
-        $mail->isHTML(false); // Definir para texto puro
-        $mail->Subject = "Novo contato de $name";
-        $mail->Body    = "Nome: $name\n".
-                         "Email: $email\n".
-                         "Telefone: $phone\n".
-                         "Nome da Academia: $academyName\n".
-                         "UF: $uf\n".
-                         "Cidade: $city\n".
-                         "Unidades da Academia: $gymUnits\n".
-                         "Faturamento da Academia: $gymBilling\n".
-                         "Valor ECAD: $ecadValue\n".
-                         "Conta de Luz: $lightBilling\n".
-                         "Seguro de Vida do Estagiário: $traineeLifeSecure\n".
-                         "Conta Jurídica: $lawyerAccount\n".
-                         "Total de Economia: $economyTotals\n";
-
-        // Enviar e-mail
-        if ($mail->send()) {
-            echo json_encode(["success" => true, "message" => "Mensagem enviada com sucesso!"]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Erro ao enviar mensagem."]);
-        }
-    } catch (Exception $e) {
-        echo json_encode(["success" => false, "message" => "Erro ao enviar e-mail: {$mail->ErrorInfo}"]);
-    }
-} else {
-    echo json_encode(["success" => false, "message" => "Método inválido."]);
+// Verifica se foi enviado via POST
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    http_response_code(405);
+    echo json_encode(["success" => false, "message" => "Método não permitido"]);
+    exit;
 }
-?>
+
+// Captura dados do formulário
+$name = $_POST["name"] ?? "";
+$suburb = $_POST["suburb"] ?? "";
+$phone = $_POST["phone"] ?? "";
+$email = $_POST["email"] ?? "";
+$preferedContactMethod = $_POST["preferedContactMethod"] ?? "";
+
+// Captura dados do veículo (tudo que não for contato)
+$vehicleInfo = [];
+foreach ($_POST as $key => $value) {
+    if (!in_array($key, ["name", "suburb", "phone", "email", "preferedContactMethod"])) {
+        $vehicleInfo[$key] = json_decode($value, true) ?? $value;
+    }
+}
+
+// Monta corpo do e-mail
+$body  = "<h2>Novo pedido de orçamento</h2>";
+$body .= "<p><strong>Nome:</strong> {$name}</p>";
+$body .= "<p><strong>Suburb:</strong> {$suburb}</p>";
+$body .= "<p><strong>Telefone:</strong> {$phone}</p>";
+$body .= "<p><strong>Email:</strong> {$email}</p>";
+$body .= "<p><strong>Contato preferido:</strong> {$preferedContactMethod}</p>";
+$body .= "<h3>Informações do veículo:</h3><ul>";
+
+foreach ($vehicleInfo as $field => $value) {
+    if (is_array($value)) {
+        $body .= "<li><strong>{$field}:</strong><ul>";
+        foreach ($value as $subKey => $subVal) {
+            $body .= "<li>{$subKey}: {$subVal}</li>";
+        }
+        $body .= "</ul></li>";
+    } else {
+        $body .= "<li><strong>{$field}:</strong> {$value}</li>";
+    }
+}
+$body .= "</ul>";
+
+// Configuração do e-mail
+$mail = new PHPMailer(true);
+
+try {
+    require_once './emailCredencials.php';
+    // Config SMTP (troque pelos dados do seu servidor/email)
+    $mail->isSMTP();
+    $mail->Host       = $smtpHost; 
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $smtpEmail;
+    $mail->Password   = $smtpPassword;
+    $mail->SMTPSecure = $smtpEncryption;
+    $mail->Port       = $smtpPortNumber;
+
+    // Remetente e destinatário
+    $mail->setFrom('seuemail@dominio.com', 'Site - Orçamentos');
+    $mail->addAddress('destino@dominio.com', 'Equipe de Vendas');
+
+    // Anexar fotos
+    if (!empty($_FILES['photos'])) {
+        foreach ($_FILES['photos']['tmp_name'] as $index => $tmpName) {
+            if (is_uploaded_file($tmpName)) {
+                $mail->addAttachment($tmpName, $_FILES['photos']['name'][$index]);
+            }
+        }
+    }
+
+    // Conteúdo
+    $mail->isHTML(true);
+    $mail->Subject = "Novo pedido de orçamento de {$name}";
+    $mail->Body    = $body;
+
+    $mail->send();
+    echo json_encode(["success" => true, "message" => "E-mail enviado com sucesso"]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Erro: {$mail->ErrorInfo}"]);
+}
