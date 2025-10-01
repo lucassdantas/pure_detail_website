@@ -39,7 +39,7 @@ export default function Home() {
       </Section>
       <Section id="about">
           <HighLightedTitle text='About'/>
-          <div className='flex lg:flex-row flex-col justify-center gap-24 items-center px-[80px]'>
+          <div className='flex lg:flex-row flex-col justify-center gap-24 items-center lg:px-[80px]'>
             <img src='/imgs/about/professional-cleaning-a-car.jpg' alt='Car professional working' className='rounded-lg lg:w-1/3 w-full '/>
             <div className='font-bold gap-4 text-2xl lg:w-1/2 w-full space-y-4'>
               <p>
