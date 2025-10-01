@@ -4,6 +4,7 @@ import { Limiter } from '@/app/components/Limiter'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { BsInstagram, BsTiktok, BsList, BsX } from 'react-icons/bs'
+import { instagramUrl, tiktokUrl } from '@/app/utils/constantVales/companyData'
 
 export const Header = () => {
   const pathName = usePathname()
@@ -44,8 +45,12 @@ export const Header = () => {
                 </ul>
               </nav>
               <ul className="flex justify-between gap-4">
-                <BsInstagram className="cursor-pointer hover:text-2xl transition-all" />
-                <BsTiktok className="cursor-pointer hover:text-2xl transition-all" />
+                <Link href={instagramUrl} target='_blank'>
+                  <BsInstagram className="cursor-pointer hover:text-2xl transition-all" />
+                </Link>
+                <Link href={tiktokUrl} target='_blank'>
+                  <BsTiktok className="cursor-pointer hover:text-2xl transition-all" />
+                </Link>
               </ul>
             </div>
           </Limiter>

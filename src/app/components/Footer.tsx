@@ -47,7 +47,7 @@ export const Footer = () => {
                 <h4 className='text-2xl uppercase font-bold mb-2'>{column.title}</h4>
                 <ul className='flex flex-col gap-1'>
                   {column.links.map((menuLink) => (
-                    <Link href={menuLink.link} key={menuLink.link}>
+                    <Link href={menuLink.link} key={menuLink.link} target='_blank'>
                       <li className='hover:underline cursor-pointer'>{menuLink.name}</li>
                     </Link>
                   ))}
