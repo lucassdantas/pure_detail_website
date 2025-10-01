@@ -1,5 +1,6 @@
 import { Banner } from "@/app/components/Banner";
 import { Section } from "@/app/components/Section";
+import { Title } from "@/app/components/Title";
 import { companyName, email } from "@/app/utils/constantVales/companyData";
 
 export default function PrivacyPolicyPage() {
@@ -8,7 +9,7 @@ export default function PrivacyPolicyPage() {
       <Banner title="Privacy Policy" bgImgClass="servicesBanner" hasButton={false} />
       <Section className='bg-white border-b-black border-b-2'>
         <div className="prose max-w-none text-gray-800 pb-12 policy">
-          <h2 className='firstTitle'>Introduction</h2>
+          <Title tag={'h2'} className='firstTitle'>Introduction</Title>
           <p>
             At {companyName}, we respect your privacy and are committed to
             protecting your personal information in accordance with the 
@@ -17,7 +18,7 @@ export default function PrivacyPolicyPage() {
             when you use our website and services.
           </p>
 
-          <h2>Information We Collect</h2>
+          <Title tag="h2">Information We Collect</Title>
           <p>We may collect the following types of personal information:</p>
           <ul>
             <li>Name and contact details (e.g. email address, phone number)</li>
@@ -28,7 +29,7 @@ export default function PrivacyPolicyPage() {
             </li>
           </ul>
 
-          <h2>How We Use Your Information</h2>
+          <Title tag="h2">How We Use Your Information</Title>
           <p>We use your information to:</p>
           <ul>
             <li>Provide and improve our services</li>
@@ -38,7 +39,7 @@ export default function PrivacyPolicyPage() {
             <li>Comply with legal obligations</li>
           </ul>
 
-          <h2>Cookies</h2>
+          <Title tag="h2">Cookies</Title>
           <p>
             Our website may use cookies and similar technologies to improve user
             experience and analyse traffic. You can manage or disable cookies
@@ -46,7 +47,7 @@ export default function PrivacyPolicyPage() {
             functionality.
           </p>
 
-          <h2>Sharing Your Information</h2>
+          <Title tag="h2">Sharing Your Information</Title>
           <p>
             We do not sell your personal information. We may share your data
             only with:
@@ -62,14 +63,14 @@ export default function PrivacyPolicyPage() {
             </li>
           </ul>
 
-          <h2>Data Security</h2>
+          <Title tag="h2">Data Security</Title>
           <p>
             We take reasonable steps to protect your personal information from
             loss, misuse, unauthorised access, or disclosure. However, no method
             of transmission over the internet is completely secure.
           </p>
 
-          <h2>Access and Correction</h2>
+          <Title tag="h2">Access and Correction</Title>
           <p>
             You have the right to access and correct the personal information we
             hold about you, in line with the Privacy Act 2020. To make a request,
@@ -77,20 +78,20 @@ export default function PrivacyPolicyPage() {
             <a href={`mailto:${email}`}>{email}</a>.
           </p>
 
-          <h2>International Transfers</h2>
+          <Title tag="h2">International Transfers</Title>
           <p>
             If we transfer your personal information outside New Zealand, we
             will ensure that appropriate safeguards are in place to protect your
             data in accordance with the Privacy Act 2020.
           </p>
 
-          <h2>Changes to This Policy</h2>
+          <Title tag="h2">Changes to This Policy</Title>
           <p>
             We may update this Privacy Policy from time to time. Any changes
             will be posted on this page with an updated “last revised” date.
           </p>
 
-          <h2>Contact Us</h2>
+          <Title tag="h2">Contact Us</Title>
           <p>
             If you have any questions or concerns about this Privacy Policy or
             how your information is handled, please contact us at:
