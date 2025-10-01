@@ -17,7 +17,7 @@ export const Header = () => {
   ]
 
   return (
-    <header className="relative z-10">
+    <header className="relative z-10 px-2">
       {/* ---------- DESKTOP: EXACTLY AS ORIGINAL (only show on lg and up) ---------- */}
       <div className="hidden lg:block">
         <div className="flex justify-center pt-8 text-lg -mb-20">
@@ -60,7 +60,7 @@ export const Header = () => {
             <img
               src="/imgs/pure-detail-logo.png"
               alt="pure detail logo"
-              className="max-w-[300px] w-[160px] sm:w-[200px] object-contain"
+              className="max-w-[300px] w-[180px] sm:w-[200px] "
             />
           </div>
 
