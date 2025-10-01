@@ -49,7 +49,7 @@ export const Header = () => {
             </ul>
           </nav>
           <ul className='flex justify-between gap-4'>
-            <BsInstagram className='cursor-pointer hover:outline-accent-yellow hover:outline transition-all' />
+            <BsInstagram className='cursor-pointer hover:text-2xl transition-all' />
             <BsTiktok className='cursor-pointer hover:text-2xl transition-all' />
           </ul>
         </div>
