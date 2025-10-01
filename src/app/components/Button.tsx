@@ -2,11 +2,11 @@ import { ButtonType } from '@/app/types/ButtonType'
 import Link from 'next/link'
 import React from 'react'
 
-export const Button = ({text, url, className = ''}:ButtonType) => {
+export const Button = ({text, url, className = '', textSize = 'text-xl'}:ButtonType) => {
   return (
     <Link
       href={url}
-      className={`relative py-1 px-2 text-center text-xl border-2 font-bold border-white cursor-pointer transition-transform duration-200 hover:scale-150 ${className}`}
+      className={`relative py-1 px-2 text-center ${textSize} border-2 font-bold border-white cursor-pointer transition-transform duration-200 hover:scale-150 ${className}`}
     >
       {text}
     </Link>
