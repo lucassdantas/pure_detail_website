@@ -32,11 +32,11 @@ export const Footer = () => {
         {/* Top section */}
         <div className='flex flex-col lg:flex-row justify-between gap-8'>
           {/* Logo */}
-          <div className='flex-shrink-0 lg:w-2/6 flex justify-center lg:justify-start'>
+          <div className='flex-shrink-0 lg:w-4/6 flex justify-center lg:justify-start'>
             <img
               src='/imgs/brandmark-logo-puredetail.png'
               alt='pure detail logo footer'
-              className='max-w-[250px] w-full object-contain'
+              className='lg:max-w-[550px] max-w-[250px] w-full object-contain'
             />
           </div>
 
