@@ -12,17 +12,19 @@ type BannerProps =
       title: string;
       hasButton: true;
       button: ButtonType; 
+      className?:string;
     }
   | {
       bgImgClass: string;
       title: string;
       hasButton: false;
       button?: never; 
+      className?:string;
     };
     
-export const Banner = ({bgImgClass, title, hasButton, button}:BannerProps) => {
+export const Banner = ({bgImgClass, title, hasButton, button, className=''}:BannerProps) => {
   return (
-    <Section className={`relative flex justify-center py-24 items-end text-center min-h-[70vh] bannerSection text-white ${bgImgClass}`}>
+    <Section className={`relative flex justify-center py-24 items-end text-center min-h-[70vh] bannerSection text-white ${bgImgClass} ${className} `}>
       <div className={`absolute h-full w-full top-0 left-0 opacity-60 bg-black `}></div>
       <Title tag='h1' className={`uppercase font-black relative lg:text-7xl text-4xl mb-24 -tracking-wider `}>{title}</Title>
       {hasButton &&<Button url={button?.url} text={button?.text} textSize='lg:text-4xl text-2xl' className='hover:border-accent-yellow px-6'/>}
