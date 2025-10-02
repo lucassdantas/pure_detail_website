@@ -31,6 +31,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
       <fieldset className="space-y-2 border p-3 rounded">
         <label htmlFor="name" className="text-lg">Name:</label>
         <input
+          required
           id="name"
           type="text"
           value={name}
@@ -42,6 +43,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
       <fieldset className="space-y-2 border p-3 rounded">
         <label htmlFor="suburb" className="text-lg">Suburb/Area:</label>
         <input
+          required
           id="suburb"
           type="text"
           value={suburb}
@@ -53,6 +55,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
       <fieldset className="space-y-2 border p-3 rounded">
         <label htmlFor="phone" className="text-lg">Phone:</label>
         <input
+          required
           id="phone"
           type="text"
           value={phone}
@@ -64,6 +67,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
       <fieldset className="space-y-2 border p-3 rounded">
         <label htmlFor="email" className="text-lg">Email:</label>
         <input
+          required
           id="email"
           type="email"
           value={email}
@@ -75,6 +79,7 @@ export const ContactDetailsForm: React.FC<ContactDetailsFormProps> = ({
       <fieldset className="space-y-2 border p-3 rounded">
         <label htmlFor="contactMethod" className="text-lg">Preferred contact method:</label>
         <select
+          required
           id="contactMethod"
           value={preferedContactMethod}
           onChange={(e) => setPreferedContactMethod(e.target.value)}

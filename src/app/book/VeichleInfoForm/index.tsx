@@ -140,25 +140,31 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
   };
 
   return (
-    <form className="space-y-6">
-      <fieldset  className="border border-neutral-200 p-4 rounded bg-black hover:border-white">
+    <div className="space-y-6">
+      <fieldset className="border border-neutral-200 p-4 rounded bg-black hover:border-white">
         <label className="flex items-center gap-2 cursor-pointer w-full ">
           Vehicle Type:
           <input
             type="text"
-            className="border-b px-2 py-1  border-white bg-neutral-900 rounded cursor-pointer outline-0 "
-            placeholder='Make, Model'
+            className="border-b px-2 py-1 border-white bg-neutral-900 rounded cursor-pointer outline-0"
+            placeholder="Make, Model"
+            required
+            onChange={(e) => onChange({ ...formData, vehicleType: e.target.value, photos })}
           />
         </label>
-        </fieldset>
+      </fieldset>
+
       {fields.map((field) => (
-        <fieldset key={field.nameToCode} className="border border-neutral-200 p-4 rounded bg-black hover:border-white">
+        <fieldset
+          key={field.nameToCode}
+          className="border border-neutral-200 p-4 rounded bg-black hover:border-white"
+        >
           <label className="flex items-center gap-2 cursor-pointer w-full ">
             <input
               type="checkbox"
               checked={!!formData[field.nameToCode]}
               onChange={(e) => handleCheckboxChange(field, e.target.checked)}
-              className="w-4 h-4 cursor-pointer "
+              className="w-4 h-4 cursor-pointer"
             />
             <span className="font-medium">{field.name}</span>
           </label>
@@ -171,6 +177,8 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
                   <select
                     className="border rounded p-2 w-full hover:border-light-yellow bg-black"
                     onChange={(e) => handleNestedChange(field.nameToCode, nested.name, e.target.value)}
+                    required
+                    value={formData[field.nameToCode]?.[nested.name] || ""}
                   >
                     <option value="">Select...</option>
                     {nested.options?.map((opt) => (
@@ -185,6 +193,8 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
                     placeholder={nested.placeholder}
                     className="border rounded p-2 w-full outline-0"
                     onChange={(e) => handleNestedChange(field.nameToCode, nested.name, e.target.value)}
+                    required
+                    value={formData[field.nameToCode]?.[nested.name] || ""}
                   />
                 )}
               </div>
@@ -195,9 +205,11 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
       {/* Upload de fotos */}
       <fieldset
         className="space-y-2 border p-4 rounded cursor-pointer"
-        onClick={() => document.getElementById("photos")?.click()} // dispara o input
+        onClick={() => document.getElementById("photos")?.click()}
       >
-        <label htmlFor="photos" className="text-lg font-medium">Upload Photos (optional)</label>
+        <label htmlFor="photos" className="text-lg font-medium">
+          Upload Photos (optional)
+        </label>
 
         <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 hover:border-light-yellow transition">
           <input
@@ -213,7 +225,7 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
         </div>
 
         {photos.length > 0 && (
-          <div className="flex gap-3 mt-3">
+          <div className="flex gap-3 mt-3 flex-wrap">
             {photos.map((file, index) => (
               <div key={index} className="relative group w-fit">
                 <img
@@ -223,7 +235,10 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
                 />
                 <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); handleRemovePhoto(index); }} // impede que o click abra o input
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemovePhoto(index);
+                  }}
                   className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-1 text-xs opacity-0 group-hover:opacity-100 transition cursor-pointer"
                 >
                   ✕
@@ -233,7 +248,6 @@ export const VehicleInfoForm: React.FC<VehicleInfoFormProps> = ({ onChange }) =>
           </div>
         )}
       </fieldset>
-
-    </form>
+    </div>
   );
 };

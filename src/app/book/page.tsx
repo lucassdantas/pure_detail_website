@@ -22,8 +22,25 @@ export default function BookPage() {
   // Estado de envio
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const validateVehicleInfo = () => {
+    for (const fieldKey in vehicleInfo) {
+      if (vehicleInfo[fieldKey] && typeof vehicleInfo[fieldKey] === "object") {
+        for (const nestedKey in vehicleInfo[fieldKey]) {
+          if (!vehicleInfo[fieldKey][nestedKey]) {
+            alert(`Please fill in "${nestedKey}" in ${fieldKey}`);
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  };
+
   // Envio do formulário
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // 🔹 evita reload da página
+    if (!validateVehicleInfo()) return;
+
     const formData = new FormData();
 
     // Dados de contato
@@ -45,11 +62,11 @@ export default function BookPage() {
     }
 
     try {
-      const response = await fetch(location.protocol+'//'+siteUrl+"/backend/send-email.php", {
+      const response = await fetch(location.protocol + '//' + siteUrl + "/backend/send-email.php", {
         method: "POST",
         body: formData,
       });
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         setIsSubmitted(true); // ✅ marca como enviado
       } else {
@@ -65,17 +82,16 @@ export default function BookPage() {
     <>
       <Banner title="Get a Quote Today" bgImgClass="bookBanner" hasButton={false} />
 
-      <Section className='pb-4'>
+      <Section className="pb-4">
         {isSubmitted ? (
-          // ✅ Mostra mensagem de sucesso no lugar do form
           <div className="w-full flex justify-center my-24">
             <HighLightedText className="lg:w-[600px] w-full text-center text-lg">
               Thanks for submitting your request! We'll be in touch within 24 hours with your tailored quote and next steps.
             </HighLightedText>
           </div>
         ) : (
-          // ✅ Mostra formulário
-          <>
+          // ✅ Coloquei dentro de um <form>
+          <form onSubmit={handleSubmit}>
             <HighLightedTitle text="Contact Details" />
             <ContactDetailsForm
               name={name}
@@ -95,13 +111,13 @@ export default function BookPage() {
 
             <div className="w-full flex justify-center my-6">
               <button
-                onClick={handleSubmit}
-                className={`py-2 px-2 text-center outline-2 outline-white rounded-full cursor-pointer text-2xl font-medium hover:outline-accent-yellow lg:min-w-[240px] transition-colors`}
+                type="submit" // 🔹 agora dispara o required
+                className="py-2 px-2 text-center outline-2 outline-white rounded-full cursor-pointer text-2xl font-medium hover:outline-accent-yellow lg:min-w-[240px] transition-colors"
               >
                 Submit Quote
               </button>
             </div>
-          </>
+          </form>
         )}
       </Section>
     </>
