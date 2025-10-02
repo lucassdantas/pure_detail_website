@@ -120,7 +120,8 @@ export default function RootLayout({
               "image": "https://puredetail.co.nz/imgs/og-banner.jpg",
               "@id": "https://puredetail.co.nz",
               "url": "https://puredetail.co.nz",
-              "telephone": "+64 21 234 5678",
+              "telephone": "+64 21 242 0008",
+              "email": "contact@puredetail.co.nz",
               "priceRange": "$$",
               "address": {
                 "@type": "PostalAddress",
@@ -151,9 +152,9 @@ export default function RootLayout({
                 }
               ],
               "sameAs": [
-                "https://www.facebook.com/puredetailnz",
+                "https://www.tiktok.com/@puredetailnz",
                 "https://www.instagram.com/puredetailnz",
-                "https://twitter.com/PureDetailNZ"
+                "https://www.facebook.com/profile.php?id=61578328047059"
               ],
               "description": "Pure Detail is a locally-owned car detailing business in North Shore, Auckland. We provide premium interior and exterior car detailing, polishing, and paint protection services.",
               "makesOffer": [
