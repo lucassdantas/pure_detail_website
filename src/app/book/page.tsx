@@ -21,6 +21,7 @@ export default function BookPage() {
 
   // Estado de envio
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // 🔹 novo estado
 
   const validateVehicleInfo = () => {
     for (const fieldKey in vehicleInfo) {
@@ -38,8 +39,10 @@ export default function BookPage() {
 
   // Envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // 🔹 evita reload da página
+    e.preventDefault();
     if (!validateVehicleInfo()) return;
+
+    setIsLoading(true); // 🔹 começa o loading
 
     const formData = new FormData();
 
@@ -66,15 +69,17 @@ export default function BookPage() {
         method: "POST",
         body: formData,
       });
-      console.log(response);
+
       if (response.ok) {
-        setIsSubmitted(true); // ✅ marca como enviado
+        setIsSubmitted(true);
       } else {
         alert("Error on send your quote. Try again later or contact us by email/phone.");
       }
     } catch (error) {
       console.error("Erro:", error);
       alert("Error on send your quote. Try again later or contact us by email/phone.");
+    } finally {
+      setIsLoading(false); // 🔹 encerra loading
     }
   };
 
@@ -90,7 +95,6 @@ export default function BookPage() {
             </HighLightedText>
           </div>
         ) : (
-          // ✅ Coloquei dentro de um <form>
           <form onSubmit={handleSubmit}>
             <HighLightedTitle text="Contact Details" />
             <ContactDetailsForm
@@ -110,12 +114,19 @@ export default function BookPage() {
             <VehicleInfoForm onChange={setVehicleInfo} />
 
             <div className="w-full flex justify-center my-6">
-              <button
-                type="submit" // 🔹 agora dispara o required
-                className="py-2 px-2 text-center outline-2 outline-white rounded-full cursor-pointer text-2xl font-medium hover:outline-accent-yellow lg:min-w-[240px] transition-colors"
-              >
-                Submit Quote
-              </button>
+              {isLoading ? (
+                // 🔹 Spinner simples (tailwind)
+                <div className="flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-gray-300 border-t-accent-yellow rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  className="py-2 px-2 text-center outline-2 outline-white rounded-full cursor-pointer text-2xl font-medium hover:outline-accent-yellow lg:min-w-[240px] transition-colors"
+                >
+                  Submit Quote
+                </button>
+              )}
             </div>
           </form>
         )}

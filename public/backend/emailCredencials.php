@@ -1,8 +1,8 @@
 <?php
 
-$smtpHost = 'mail.devrdmarketing.com';
+$smtpHost = 'smtp.gmail.com';
 $smtpPortNumber = 465;
-$smtpEmail = 'teste02@devrdmarketing.com';
-$smtpPassword = 'Thi+1zffwh;6';
+$smtpEmail = 'contact@puredetail.co.nz';
+$smtpPassword = 'pzeh qjux jdrs qczc';
 
 $emailReceiver = 'contact@puredetail.co.nz';
