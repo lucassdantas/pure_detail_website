@@ -47,7 +47,7 @@ export const Footer = () => {
                 <h4 className='text-2xl uppercase font-bold mb-2'>{column.title}</h4>
                 <ul className='flex flex-col gap-1'>
                   {column.links.map((menuLink) => (
-                    <Link href={menuLink.link} key={menuLink.link} target='_blank'>
+                    <Link href={menuLink.link} key={menuLink.link} >
                       <li className='hover:underline cursor-pointer'>{menuLink.name}</li>
                     </Link>
                   ))}
@@ -76,13 +76,13 @@ export const Footer = () => {
         <div className='flex flex-col lg:flex-row justify-between items-center gap-6'>
           {/* Socials */}
           <div className='flex gap-4 text-2xl'>
-            <Link href={tiktokUrl} aria-label='Tiktok'>
+            <Link href={tiktokUrl} aria-label='Tiktok' target='_blank'>
               <BsTiktok />
             </Link>
-            <Link href={instagramUrl} aria-label='Instagram'>
+            <Link href={instagramUrl} aria-label='Instagram' target='_blank'>
               <BsInstagram />
             </Link>
-            <Link href={facebookUrl} aria-label='Facebook'>
+            <Link href={facebookUrl} aria-label='Facebook' target='_blank'>
               <CgFacebook />
             </Link>
           </div>
