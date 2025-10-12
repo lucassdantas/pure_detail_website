@@ -7,6 +7,7 @@ export type ServiceType = {
   btnText:string,
   imgUrl:string,
   category:string;
+  isHighlightedService?:boolean;
 }
 
 export type FeaturedServicesType = {

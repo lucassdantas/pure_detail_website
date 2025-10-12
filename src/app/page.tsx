@@ -29,6 +29,7 @@ export default function Home() {
                 upperText={service.upperText}
                 key={'home'+service.title}
                 hasButton={false}
+                isHighlightedService={true}
               />
             )
           })}

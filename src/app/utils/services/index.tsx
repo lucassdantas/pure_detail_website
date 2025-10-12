@@ -11,7 +11,7 @@ export const allServices:ServiceType[] = [
       'Hand wash',
       'Wheel + tire clean',
       'Microfiber towel dry',
-      'Quiok wax or spray sealant',
+      'Quick wax or spray sealant',
       'Tire shine'
     ],
     priceText:'Starting from $99',
@@ -60,7 +60,7 @@ export const allServices:ServiceType[] = [
       'Machine polish',
       'UV sealant finish',
     ],
-    priceText:'$119',
+    priceText:'$99',
     btnText:'Book Headlight Restoration',
     imgUrl:servicesImgsDirectory+'/headlight-restoration.jpg',
     category:'Restoration & revival'
