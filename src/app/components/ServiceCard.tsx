@@ -39,7 +39,7 @@ return(
 }
 export const ServiceCard = ({upperText, bottomText, title, detailsList, priceText, btnText, imgUrl, category, hasButton = true, isHighlightedService = false}:ServiceCardProps) => {
   return (
-    <div className={`service-card ${isHighlightedService? 'min-h-[750px]':'min-h-full '} h-full justify-between flex flex-col max-w-[330px] z-0`} id={title.replace(' ', '-').toLowerCase()}>
+    <div className={`relative service-card ${isHighlightedService? 'min-h-[750px] h-full':'min-h-full '}  justify-between flex flex-col max-w-[330px] z-0`} id={title.replace(' ', '-').toLowerCase()}>
      
       <div className=''>
         <div className={`w-full relative flex flex-col items-center p-2  border-4 border-accent-yellow bg-radial from-white from-60% to-gray-400 rounded-lg text-black mb-10`}>

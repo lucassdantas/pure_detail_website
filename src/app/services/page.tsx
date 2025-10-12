@@ -20,12 +20,12 @@ const servicesByCategory = allServices.reduce((acc, service) => {
     <>
       <Banner title='Services' bgImgClass="servicesBanner" hasButton={false} />
       <Section>
-        <div className="relative flex flex-col  gap-8">
+        <div className="relative flex flex-col gap-8">
           {Object.entries(servicesByCategory).map(([category, services]) => (
             <div key={category} id={category.replace(' ', '-').toLowerCase()}>
               <HighLightedTitle text={category} className='' />
 
-              <div className="flex lg:flex-row flex-col flex-wrap lg:justify-between items-center gap-14 mt-12">
+              <div className="flex lg:flex-row flex-col flex-wrap lg:justify-between items-stretch gap-14 mt-12">
                 {services.map((service, i) => (
                   <>
                   <ServiceCard
